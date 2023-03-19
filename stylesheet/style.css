@@ -8,11 +8,11 @@ body,.screen{
 
 .frame{
     flex-direction: column;
-    height:80vh;
+    height:90vh;
     width:30vw; 
     flex-basis:40vw;
     padding:10px;
-    background-color: blue ;
+    background-color: #c0c0c0 ;
     gap:10px;
 }
 
@@ -35,19 +35,23 @@ body,.screen{
     Buttons Control
 */
 .buttons{
+    width:40vw; 
+    flex-basis:40vw;
+    background-color: #8b8989;
     flex:1 1 auto;
     gap:10px;
 }
 .numbers,.controls{
+    flex:1 1 auto;
     display:grid;
     gap:15px;
 }
 
 .numbers{
-    grid-template-columns: repeat(3,100px);
+    grid-template-columns: repeat(3,1fr);
 }
 .controls{
-    grid-template-columns: repeat(1,100px);
+    grid-template-columns: repeat(1,1fr);
 }
 
 .numbers button,.controls button{

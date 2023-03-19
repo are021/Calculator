@@ -1,7 +1,61 @@
+.frame,.buttons,body,.screen,.equals{
+    display:flex;
+}
+
+body,.screen{
+    justify-content: center;
+}
+
 .frame{
+    flex-direction: column;
     height:80vh;
-    width:30vw;
+    width:30vw; 
+    flex-basis:40vw;
     padding:10px;
     background-color: blue ;
-
+    gap:10px;
 }
+
+/*
+    Calculator Display
+*/
+
+.screen{
+    background-color: rgb(45, 41, 41);
+    color:#20C20E;
+    align-items: center;
+    padding:10px;
+    font-size:25px;
+    border: black double 10px;
+    height:15vh;
+}
+
+
+/*
+    Buttons Control
+*/
+.buttons{
+    flex:1 1 auto;
+    gap:10px;
+}
+.numbers,.controls{
+    display:grid;
+    gap:15px;
+}
+
+.numbers{
+    grid-template-columns: repeat(3,100px);
+}
+.controls{
+    grid-template-columns: repeat(1,100px);
+}
+
+.numbers button,.controls button{
+    margin:0;
+    padding:10px;
+    flex : 1 1 auto;
+}
+#zero{
+    grid-column:span 3;
+}
+

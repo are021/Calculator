@@ -1,7 +1,24 @@
+
+
+/*
+    Side Panel
+*/
+/*
+.chopper {
+    font-size:13px;
+    align-self: center;
+}
+.chopper img{
+    height:auto;
+    width:10vw;
+}
+*/
+/*
+    Body and Frame
+*/
 .frame,.buttons,body,.screen,.equals{
     display:flex;
 }
-
 body,.screen{
     justify-content: center;
 }
@@ -13,8 +30,12 @@ body,.screen{
     width:30vw; 
     flex-basis:40vw;
     padding:10px;
-    background-color: #c0c0c0 ;
     gap:10px;
+    background-color: #c0c0c0 ;
+}
+
+body button{
+    font-size:25px;
 }
 
 /*
@@ -22,9 +43,10 @@ body,.screen{
 */
 
 .screen{
+    align-items: center;
+    justify-content: flex-start;
     background-color: rgb(45, 41, 41);
     color:#20C20E;
-    align-items: center;
     padding:10px;
     font-size:25px;
     border: black double 5px;
@@ -63,9 +85,16 @@ body,.screen{
 .numbers button,.controls button{
     margin:0;
     padding:10px;
+    border:black solid 3px;
     flex : 1 1 auto;
 }
+.numbers button:hover,.controls button:hover{
+    cursor:pointer;
+}
+.numbers button:active,.controls button:active{
+    border:red solid 3px;
+}
 #zero{
-    grid-column:span 3;
+    grid-column:span 2;
 }
 

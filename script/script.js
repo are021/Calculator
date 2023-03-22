@@ -2,7 +2,8 @@
     Globals
 */
 ////////////////////////////////////////////////////////////////
-const screen = document.querySelector(".screen");
+const screen = document.querySelector(".onscreen");
+const oldanswer = document.querySelector(".oldanswer");
 const numbers = ["7","8","9","4","5", "6", "1", "2", "3", "0"];
 const operators = ["+","-","x","/"];
 
@@ -10,19 +11,45 @@ let operatorPressed = [false,""];
 let equalsPressed = false;
 let firstVal = null;
 let secondVal = null;
+
+let chaining = false;
 ////////////////////////////////////////////////////////////////
 
+
+/*
+    Reset Dom
+*/
 function clearDiv(){
     screen.textContent = "> ";
 }
 
-function typeToScreen(str){
+function resetCalculator(){
+    operatorPressed = [false,""];
+    equalsPressed = false;
+    firstVal = null;
+    secondVal = null;
+    oldanswer.innerText = "";
+    clearDiv();
+}
 
+function resetOthers(){
+    secondVal = null;
+    operatorPressed = [false,""];
+    equalsPressed = false;
+}
+
+
+
+/*
+**  Operations and Math
+**
+*/
+
+function typeToScreen(str){
     //Operators
     if (operators.includes(str) && !(operatorPressed[0])){
         operatorPressed[0] = true;
         operatorPressed[1] = str;
-        alert(operatorPressed[1]);
         screen.textContent += (" " + str + " ");
     }
     //First Val
@@ -33,7 +60,10 @@ function typeToScreen(str){
         }
         firstVal += str;
     }
-    else if (operatorPressed[0]){
+    else if (operators.includes(str) && operatorPressed[0] && operatorPressed[1]!= ""){
+        alert("Cannot Enter!");
+    }
+    else if (operatorPressed[0] && operatorPressed[1]!=""){
         screen.textContent += str;
         if (!secondVal){
             secondVal = "";
@@ -46,15 +76,27 @@ function showAnswer(){
     switch(operatorPressed[1]){
         case operators[0]:
             screen.innerText = +firstVal + +secondVal;
+            firstVal = +firstVal + +secondVal;
+            oldanswer.innerText = firstVal;
+            resetOthers();
             break;
         case operators[1]:
             screen.innerText = firstVal - secondVal;
+            firstVal = firstVal - secondVal;
+            oldanswer.innerText = firstVal;
+            resetOthers();
             break;
         case operators[2]:
             screen.innerText = firstVal * secondVal;
+            firstVal = firstVal * secondVal;
+            oldanswer.innerText = firstVal;
+            resetOthers();
             break;
         case operators[3]:
             screen.innerText = firstVal / secondVal;
+            firstVal = firstVal / secondVal;
+            oldanswer.innerText = firstVal;
+            resetOthers();
             break;
 
         
@@ -67,6 +109,7 @@ function main(){
     clearDiv();
     clearButton.removeEventListener('click',main);
     clearButton.addEventListener('click',clearDiv);
+    clearButton.addEventListener('dblclick',resetCalculator);
     const numbers = document.querySelectorAll(".numbers button");
     assignNumbers(numbers);
     const operations = document.querySelectorAll("button.operators");

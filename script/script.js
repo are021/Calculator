@@ -30,7 +30,7 @@ function resetCalculator(){
     operatorPressed = [false,""];
     firstVal = null;
     secondVal = null;
-    oldanswer.innerText = "";
+    oldanswer.innerText = "None";
     clearDiv();
     validOperation = false;
     chaining = false;
@@ -137,7 +137,7 @@ function showAnswer(){
         }
     }
     else{
-        alert("bad");
+        alert("Please Enter a valid operation!");
     }
     
 }

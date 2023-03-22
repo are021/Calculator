@@ -42,14 +42,10 @@ body button{
     Calculator Display
 */
 
-.oldanswer{
-    font-size : 10px;
-    margin:0;
-    align-self:flex-start;
-}
-.screen{
-    align-items: center;
-    justify-content: flex-start;
+.frame .screen{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: rgb(45, 41, 41);
     color:#20C20E;
     padding:10px;
@@ -58,6 +54,10 @@ body button{
     height:15vh;
     width: 38vw;
     flex: 1 1 auto;
+}
+.oldanswer{
+    font-size : 10px;
+    margin:0;
 }
 
 

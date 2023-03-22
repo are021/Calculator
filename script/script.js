@@ -41,7 +41,7 @@ function resetCalculator(){
     operatorPressed = [false,""];
     firstVal = null;
     secondVal = null;
-    oldanswer.innerText = "";
+    oldanswer.innerText = "=";
     screen.textContent = "> ";
     validOperation = false;
     chaining = false;

@@ -12,6 +12,7 @@ let firstVal = null;
 let secondVal = null;
 let methods = 0;
 let validOperation = false;
+let chaining = false;
 ////////////////////////////////////////////////////////////////
 
 
@@ -20,6 +21,9 @@ let validOperation = false;
 */
 function clearDiv(){
     screen.textContent = "> ";
+    if (chaining){
+        resetOthers();
+    }
 }
 
 function resetCalculator(){
@@ -28,6 +32,9 @@ function resetCalculator(){
     secondVal = null;
     oldanswer.innerText = "";
     clearDiv();
+    validOperation = false;
+    chaining = false;
+    methods = 0;
 }
 
 function resetOthers(){
@@ -35,6 +42,7 @@ function resetOthers(){
     operatorPressed = [false,""];
     methods = 0;
     validOperation = false;
+    chaining  = true;
 }
 
 
@@ -46,56 +54,54 @@ function resetOthers(){
 
 function typeToScreen(str){
     //First Operation
-    if (methods == 0){
-        if (!(operators.includes(str))){
-            if (!firstVal){
-                firstVal = "";
-            }
-            firstVal += str;
-            screen.textContent += str;
-        }
-        else if (operators.includes(str) && (firstVal)){
-            operatorPressed[0] = true;
-            operatorPressed[1] = str;
-            screen.textContent += (" " + str + " ");
-            methods += 1;
-        }
-    }
-    else if (methods == 1){
-        if (!(operators.includes(str))){
-            if (!secondVal){
-                secondVal = "";
-            }
-            secondVal += str;
-            screen.textContent += str;
-        }
-    }
 
 
-    // //Operators
-    // if (operators.includes(str) && !(operatorPressed[0]) && firstVal){
-    //     operatorPressed[0] = true;
-    //     operatorPressed[1] = str;
-    //     screen.textContent += (" " + str + " ");
-    // }
-    // //First Val
-    // else if (!(operatorPressed[0]) && !secondVal){
-    //     screen.textContent += str;
-    //     if (!firstVal){
-    //         firstVal = "";
-    //     }
-    //     firstVal += str;
-    // }
-    // else if (operators.includes(str) && operatorPressed[0] && operatorPressed[1]!= ""){
-    //     alert("Cannot Enter!");
-    // }
-    // else if (operatorPressed[0] && operatorPressed[1]!=""){
-    //     screen.textContent += str;
-    //     if (!secondVal){
-    //         secondVal = "";
-    //     }
-    //     secondVal += str;
-    // }
+    if (chaining){
+        if (methods == 0){
+            clearDiv();
+            if (operators.includes(str)){
+                operatorPressed[0] = true;
+                operatorPressed[1] = str;
+                screen.textContent += (" " + str + " ");
+                methods += 1;
+            }
+        }
+        else if (methods == 1){
+            if (!(operators.includes(str))){
+                if (!secondVal){
+                    secondVal = "";
+                }
+                secondVal += str;
+                screen.textContent += str;
+            }
+        }
+    }
+    else{
+        if (methods == 0){
+            if (!(operators.includes(str))){
+                if (!firstVal){
+                    firstVal = "";
+                }
+                firstVal += str;
+                screen.textContent += str;
+            }
+            else if (operators.includes(str) && (firstVal)){
+                operatorPressed[0] = true;
+                operatorPressed[1] = str;
+                screen.textContent += (" " + str + " ");
+                methods += 1;
+            }
+        }
+        else if (methods == 1){
+            if (!(operators.includes(str))){
+                if (!secondVal){
+                    secondVal = "";
+                }
+                secondVal += str;
+                screen.textContent += str;
+            }
+        }    
+    }
 }
 
 function showAnswer(){

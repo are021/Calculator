@@ -24,6 +24,9 @@ function clearDiv(){
     if (chaining){
         resetOthers();
     }
+    else{
+        resetCalculator();
+    }
 }
 
 function resetCalculator(){
@@ -31,7 +34,7 @@ function resetCalculator(){
     firstVal = null;
     secondVal = null;
     oldanswer.innerText = "None";
-    clearDiv();
+    screen.textContent = "> ";
     validOperation = false;
     chaining = false;
     methods = 0;

@@ -13,10 +13,6 @@ let secondVal = null;
 let methods = 0;
 let validOperation = false;
 let chaining = false;
-
-
-let equalsPressed = false;
-let chainedOperator = "";
 ////////////////////////////////////////////////////////////////
 
 
@@ -28,10 +24,6 @@ function clearDiv(){
     if (chaining){
         resetOthers();
     }
-    firstVal = null;
-    secondVal = null;
-    operatorPressed = [false,""];
-    methods = 0;
 }
 
 function resetCalculator(){
@@ -47,18 +39,10 @@ function resetCalculator(){
 
 function resetOthers(){
     secondVal = null;
+    operatorPressed = [false,""];
     methods = 0;
     validOperation = false;
     chaining  = true;
-
-    if (chainedOperator != ""){
-        operatorPressed = [true,chainedOperator];
-        methods++;
-        screen.textContent = "> "; 
-    }
-    else{
-        operatorPressed = [false,""];
-    }
 }
 
 
@@ -70,13 +54,13 @@ function resetOthers(){
 
 function typeToScreen(str){
     //First Operation
-    
     if (chaining){
         if (methods == 0){
             clearDiv();
-            if (!operatorPressed[0]){
+            if (operators.includes(str)){
                 operatorPressed[0] = true;
                 operatorPressed[1] = str;
+                // screen.textContent += (" " + str + " ");
                 methods += 1;
             }
         }
@@ -87,10 +71,6 @@ function typeToScreen(str){
                 }
                 secondVal += str;
                 screen.textContent += str;
-            }
-            else if (operators.includes(str)){
-                chainedOperator = str;
-                showAnswer();
             }
         }
     }
@@ -117,10 +97,6 @@ function typeToScreen(str){
                 }
                 secondVal += str;
                 screen.textContent += str;
-            }
-            else if (operators.includes(str)){
-                chainedOperator = str;
-                showAnswer();
             }
         }    
     }

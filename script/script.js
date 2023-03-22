@@ -12,10 +12,15 @@ let firstVal = null;
 let secondVal = null;
 let methods = 0;
 let validOperation = false;
+let failState = false;
+
+/////////////////////// For Testing
 
 let chaining = false;
+let equalsPressed = false;
+let chainedOperator = "";
 
-let failState = false;
+
 ////////////////////////////////////////////////////////////////
 
 
@@ -42,6 +47,9 @@ function resetCalculator(){
     chaining = false;
     methods = 0;
     failState = false;
+
+
+    equalsPressed = false;
 }
 
 function resetOthers(){
@@ -83,6 +91,10 @@ function typeToScreen(str){
                 secondVal += str;
                 screen.textContent += str;
             }
+            else if (operators.includes(str) && secondVal!=null){
+                chainedOperator = str;
+                showAnswer();
+            }
         }
     }
     else{
@@ -109,8 +121,9 @@ function typeToScreen(str){
                 secondVal += str;
                 screen.textContent += str;
             }
-            else{
-
+            else if (operators.includes(str) && secondVal!=null){
+                chainedOperator = str;
+                showAnswer();
             }
         }    
     }
@@ -120,43 +133,57 @@ function showAnswer(){
     if (!(!operatorPressed[0] || !(firstVal) || !(secondVal))){
         validOperation = true;
     }
-    if (validOperation){
-        switch(operatorPressed[1]){
-            case operators[0]:
-                screen.textContent = +firstVal + +secondVal;
-                firstVal = +firstVal + +secondVal;
-                oldanswer.textContent = firstVal;
-                resetOthers();
-                break;
-            case operators[1]:
-                screen.textContent = firstVal - secondVal;
-                firstVal = firstVal - secondVal;
-                oldanswer.textContent = firstVal;
-                resetOthers();
-                break;
-            case operators[2]:
-                screen.textContent = firstVal * secondVal;
-                firstVal = firstVal * secondVal;
-                oldanswer.textContent = firstVal;
-                resetOthers();
-                break;
-            case operators[3]:
-                if (secondVal == "0"){
-                    screen.textContent = "Dividing By Zero, Are you Crazy????";
-                    failState = true;
-                    return;
-                }
-                screen.textContent = firstVal / secondVal;
-                firstVal = firstVal / secondVal;
-                oldanswer.textContent = firstVal;
-                resetOthers();
-                break;        
-        }
-    }
+    if (validOperation){pickOperation();}
     else{
         alert("Please Enter a valid operation!");
     }
+    if (chainedOperator != ""){
+        if (!equalsPressed){
+            operatorPressed = [true,chainedOperator];
+            chainedOperator = ""
+            screen.textContent = "> ";
+            methods++;
+        }
+        else{
+            chainedOperator = "";
+            equalsPressed = false;
+        }
+    }
     
+}
+
+function pickOperation(){
+    switch(operatorPressed[1]){
+        case operators[0]:
+            screen.textContent = +firstVal + +secondVal;
+            firstVal = +firstVal + +secondVal;
+            oldanswer.textContent = firstVal;
+            resetOthers();
+            break;
+        case operators[1]:
+            screen.textContent = firstVal - secondVal;
+            firstVal = firstVal - secondVal;
+            oldanswer.textContent = firstVal;
+            resetOthers();
+            break;
+        case operators[2]:
+            screen.textContent = firstVal * secondVal;
+            firstVal = firstVal * secondVal;
+            oldanswer.textContent = firstVal;
+            resetOthers();
+            break;
+        case operators[3]:
+            if (secondVal == "0"){
+                screen.textContent = "Dividing By Zero, Are you Crazy????";
+                failState = true;
+                return;
+            }
+            screen.textContent = firstVal / secondVal;
+            firstVal = firstVal / secondVal;
+            oldanswer.textContent = firstVal;
+            resetOthers();
+            break;        
+    }
 }
 
 
@@ -183,7 +210,10 @@ function assignNumbers(nums){
             typeToScreen(numbers[i]);
         });
     }
-    nums[nums.length-1].addEventListener('click',showAnswer);
+    nums[nums.length-1].addEventListener('click',()=>{
+        equalsPressed = true;
+        showAnswer();
+    });
     return;
 }
 function assignOperations(operations){

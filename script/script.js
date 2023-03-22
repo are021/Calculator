@@ -4,15 +4,14 @@
 ////////////////////////////////////////////////////////////////
 const screen = document.querySelector(".onscreen");
 const oldanswer = document.querySelector(".oldanswer");
-const numbers = ["7","8","9","4","5", "6", "1", "2", "3", "0"];
-const operators = ["+","-","x","/"];
+const numbers = ["7","8","9","4","5", "6", "1", "2", "3", "0"]; //Used
+const operators = ["+","-","x","/"];    //Used
 
-let operatorPressed = [false,""];
-let equalsPressed = false;
+let operatorPressed = [false,""];  
 let firstVal = null;
 let secondVal = null;
-
-let chaining = false;
+let methods = 0;
+let validOperation = false;
 ////////////////////////////////////////////////////////////////
 
 
@@ -25,7 +24,6 @@ function clearDiv(){
 
 function resetCalculator(){
     operatorPressed = [false,""];
-    equalsPressed = false;
     firstVal = null;
     secondVal = null;
     oldanswer.innerText = "";
@@ -35,7 +33,8 @@ function resetCalculator(){
 function resetOthers(){
     secondVal = null;
     operatorPressed = [false,""];
-    equalsPressed = false;
+    methods = 0;
+    validOperation = false;
 }
 
 
@@ -46,61 +45,95 @@ function resetOthers(){
 */
 
 function typeToScreen(str){
-    //Operators
-    if (operators.includes(str) && !(operatorPressed[0])){
-        operatorPressed[0] = true;
-        operatorPressed[1] = str;
-        screen.textContent += (" " + str + " ");
-    }
-    //First Val
-    else if (!(operatorPressed[0]) && !secondVal){
-        screen.textContent += str;
-        if (!firstVal){
-            firstVal = "";
+    //First Operation
+    if (methods == 0){
+        if (!(operators.includes(str))){
+            if (!firstVal){
+                firstVal = "";
+            }
+            firstVal += str;
+            screen.textContent += str;
         }
-        firstVal += str;
-    }
-    else if (operators.includes(str) && operatorPressed[0] && operatorPressed[1]!= ""){
-        alert("Cannot Enter!");
-    }
-    else if (operatorPressed[0] && operatorPressed[1]!=""){
-        screen.textContent += str;
-        if (!secondVal){
-            secondVal = "";
+        else if (operators.includes(str) && (firstVal)){
+            operatorPressed[0] = true;
+            operatorPressed[1] = str;
+            screen.textContent += (" " + str + " ");
+            methods += 1;
         }
-        secondVal += str;
     }
+    else if (methods == 1){
+        if (!(operators.includes(str))){
+            if (!secondVal){
+                secondVal = "";
+            }
+            secondVal += str;
+            screen.textContent += str;
+        }
+    }
+
+
+    // //Operators
+    // if (operators.includes(str) && !(operatorPressed[0]) && firstVal){
+    //     operatorPressed[0] = true;
+    //     operatorPressed[1] = str;
+    //     screen.textContent += (" " + str + " ");
+    // }
+    // //First Val
+    // else if (!(operatorPressed[0]) && !secondVal){
+    //     screen.textContent += str;
+    //     if (!firstVal){
+    //         firstVal = "";
+    //     }
+    //     firstVal += str;
+    // }
+    // else if (operators.includes(str) && operatorPressed[0] && operatorPressed[1]!= ""){
+    //     alert("Cannot Enter!");
+    // }
+    // else if (operatorPressed[0] && operatorPressed[1]!=""){
+    //     screen.textContent += str;
+    //     if (!secondVal){
+    //         secondVal = "";
+    //     }
+    //     secondVal += str;
+    // }
 }
 
 function showAnswer(){
-    switch(operatorPressed[1]){
-        case operators[0]:
-            screen.innerText = +firstVal + +secondVal;
-            firstVal = +firstVal + +secondVal;
-            oldanswer.innerText = firstVal;
-            resetOthers();
-            break;
-        case operators[1]:
-            screen.innerText = firstVal - secondVal;
-            firstVal = firstVal - secondVal;
-            oldanswer.innerText = firstVal;
-            resetOthers();
-            break;
-        case operators[2]:
-            screen.innerText = firstVal * secondVal;
-            firstVal = firstVal * secondVal;
-            oldanswer.innerText = firstVal;
-            resetOthers();
-            break;
-        case operators[3]:
-            screen.innerText = firstVal / secondVal;
-            firstVal = firstVal / secondVal;
-            oldanswer.innerText = firstVal;
-            resetOthers();
-            break;
-
-        
+    if (!(!operatorPressed[0] || !(firstVal) || !(secondVal))){
+        validOperation = true;
     }
+    if (validOperation){
+        switch(operatorPressed[1]){
+            case operators[0]:
+                screen.textContent = +firstVal + +secondVal;
+                firstVal = +firstVal + +secondVal;
+                oldanswer.textContent = firstVal;
+                resetOthers();
+                break;
+            case operators[1]:
+                screen.textContent = firstVal - secondVal;
+                firstVal = firstVal - secondVal;
+                oldanswer.textContent = firstVal;
+                resetOthers();
+                break;
+            case operators[2]:
+                screen.textContent = firstVal * secondVal;
+                firstVal = firstVal * secondVal;
+                oldanswer.textContent = firstVal;
+                resetOthers();
+                break;
+            case operators[3]:
+                screen.textContent = firstVal / secondVal;
+                firstVal = firstVal / secondVal;
+                oldanswer.textContent = firstVal;
+                resetOthers();
+                break;        
+        }
+    }
+    else{
+        alert("bad");
+    }
+    
 }
 
 

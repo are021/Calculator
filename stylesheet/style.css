@@ -19,6 +19,10 @@
 .frame,.buttons,body,.screen,.equals{
     display:flex;
 }
+
+body{
+    background: url('../images/mathbackground.jpeg');
+}
 body,.screen{
     justify-content: center;
 }
@@ -56,7 +60,7 @@ body button{
     flex: 1 1 auto;
 }
 .oldanswer{
-    font-size : 10px;
+    font-size : 17px;
     margin:0;
 }
 

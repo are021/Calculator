@@ -59,6 +59,24 @@ body button{
     width: 38vw;
     flex: 1 1 auto;
 }
+/* 
+.onscreen {
+    animation: blink .75s infinite
+  }
+  
+  @keyframes blink {
+    from {
+      opacity: 0
+    }
+  
+    to {
+      opacity: 1
+    }
+  } */
+.onscreen{
+    margin-left:20px;
+    font-size:25px;
+}
 .oldanswer{
     font-size : 17px;
     margin:0;
@@ -105,4 +123,18 @@ body button{
 }
 #zero{
     grid-column:span 2;
+}
+
+
+
+/*
+    Individual Button Styles
+*/
+
+.controls button ,#equals{
+    background-color: orange;
+}
+
+#clear{
+    background-color: rgb(121, 255, 255);
 }

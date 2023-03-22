@@ -54,15 +54,13 @@ function resetOthers(){
 
 function typeToScreen(str){
     //First Operation
-
-
     if (chaining){
         if (methods == 0){
             clearDiv();
             if (operators.includes(str)){
                 operatorPressed[0] = true;
                 operatorPressed[1] = str;
-                screen.textContent += (" " + str + " ");
+                // screen.textContent += (" " + str + " ");
                 methods += 1;
             }
         }

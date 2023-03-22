@@ -12,7 +12,10 @@ let firstVal = null;
 let secondVal = null;
 let methods = 0;
 let validOperation = false;
+
 let chaining = false;
+
+let failState = false;
 ////////////////////////////////////////////////////////////////
 
 
@@ -38,6 +41,7 @@ function resetCalculator(){
     validOperation = false;
     chaining = false;
     methods = 0;
+    failState = false;
 }
 
 function resetOthers(){
@@ -57,6 +61,10 @@ function resetOthers(){
 
 function typeToScreen(str){
     //First Operation
+    if (failState){
+        resetCalculator();
+    }
+
     if (chaining){
         if (methods == 0){
             clearDiv();
@@ -101,6 +109,9 @@ function typeToScreen(str){
                 secondVal += str;
                 screen.textContent += str;
             }
+            else{
+
+            }
         }    
     }
 }
@@ -130,6 +141,11 @@ function showAnswer(){
                 resetOthers();
                 break;
             case operators[3]:
+                if (secondVal == "0"){
+                    screen.textContent = "Dividing By Zero, Are you Crazy????";
+                    failState = true;
+                    return;
+                }
                 screen.textContent = firstVal / secondVal;
                 firstVal = firstVal / secondVal;
                 oldanswer.textContent = firstVal;
